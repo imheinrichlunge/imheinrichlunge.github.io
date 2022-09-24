@@ -1,0 +1,11 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--surface-elevation-0);
+    color: var(--text-1);
+    font-family: "Inter", sans-serif;
+}

@@ -1,0 +1,65 @@
+// Default values
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 24px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    @include button;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+// Filled buttons - Default Values
+.button--filled {
+    background-color: var(--fill-high-emphasis-default);
+    color: var(--text-2);
+}
+
+// Tonal buttons - Default Values
+.button--tonal {
+    background-color: var(--fill-medium-emphasis-default);
+    color: var(--text-1);
+}
+
+// Buttons - Leading Icons - Default Values
+.button--leading-icon {
+    padding: 8px;
+    gap: 12px;
+
+    & > *:last-child {
+        display: none;
+    }
+}
+
+// Filled Buttons - States
+.button--filled {
+    &:focus {
+        background-color: var(--fill-high-emphasis-focus);
+    }
+    &:active {
+        background-color: var(--fill-high-emphasis-pressed);
+    }
+}
+
+// Filled Buttons - States
+.button--tonal {
+    &:focus {
+        background-color: var(--fill-medium-emphasis-focus);
+    }
+    &:active {
+        background-color: var(--fill-medium-emphasis-pressed);
+    }
+}
+
+@media screen and (min-width: 872px) {
+    .button--leading-icon {
+        padding: 8px 24px 8px 16px;
+
+        & > *:last-child {
+            display: block;
+        }
+    }
+}

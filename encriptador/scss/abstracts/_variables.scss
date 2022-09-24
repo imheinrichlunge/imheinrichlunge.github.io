@@ -1,0 +1,82 @@
+@media (prefers-color-scheme: light) {
+    :root {
+        // Logo
+        --logo: #0a3871;
+
+        // Text
+        --text-primary: #0a3871;
+        --text-1: #04162d;
+        --text-2: #ffffff;
+
+        // Fill - High Emphasis
+        --fill-high-emphasis-default: #0a3871;
+        --fill-high-emphasis-hover: #2f5686;
+        --fill-high-emphasis-focus: #093060;
+        --fill-high-emphasis-pressed: #07274f;
+        //Fill - Medium Emphasis
+        --fill-medium-emphasis-default: #c1cddb;
+        --fill-medium-emphasis-hover: #cad4e0;
+        --fill-medium-emphasis-focus: #a4aeba;
+        --fill-medium-emphasis-pressed: #87909a;
+
+        // Border
+        --border-default: rgba(10, 56, 113, 0.1);
+        --border-focus: #0a3871;
+
+        // Surfaces
+        --surface-1: rgba(10, 56, 113, 0.05);
+        // Surfaces - Elevations
+        --surface-elevation-0: #ffffff;
+        --surface-elevation-1: #ffffff;
+        --surface-elevation-2: #ffffff;
+        --surface-elevation-3: #ffffff;
+        --surface-elevation-4: #ffffff;
+        --surface-elevation-5: #ffffff;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        // Logo
+        --logo: #ffffff;
+
+        // Text
+        --text-primary: #6c88aa;
+        --text-1: #ffffff;
+        --text-2: #04162d;
+
+        // Fill - High Emphasis
+        --fill-high-emphasis-default: #6c88aa;
+        --fill-high-emphasis-hover: #829ab7;
+        --fill-high-emphasis-focus: #5c7491;
+        --fill-high-emphasis-pressed: #4c5f77;
+        //Fill - Medium Emphasis
+        --fill-medium-emphasis-default: #282f37;
+        --fill-medium-emphasis-hover: #484e55;
+        --fill-medium-emphasis-focus: #22282f;
+        --fill-medium-emphasis-pressed: #1c2127;
+
+        // Border
+        --border-default: rgba(108, 136, 170, 0.1);
+        --border-focus: #6c88aa;
+
+        // Surfaces
+        --surface-1: rgba(108, 136, 170, 0.05);
+        // Surfaces - Elevations
+        --surface-elevation-0: #121212;
+        --surface-elevation-1: #1e1e1e;
+        --surface-elevation-2: #232323;
+        --surface-elevation-3: #252525;
+        --surface-elevation-4: #272727;
+        --surface-elevation-5: #2c2c2c;
+    }
+}
+
+:root {
+    --fill-success: #9adc9b;
+    --fill-alert: #ffff99;
+    --fill-error: #ff6666;
+    --text-success: #1f2c1f;
+    --text-alert: #33331f;
+    --text-error: #331414;
+}

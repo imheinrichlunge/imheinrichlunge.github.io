@@ -1,0 +1,37 @@
+// Text Styles
+@mixin body {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+@mixin label {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.1px;
+}
+
+@mixin button {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.1px;
+}
+
+@mixin caption {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.4px;
+}
+
+// Effect Styles
+@mixin shadow {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.12);
+}
+
+@mixin shadow-lg {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.24);
+}

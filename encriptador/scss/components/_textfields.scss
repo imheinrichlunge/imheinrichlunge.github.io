@@ -1,0 +1,63 @@
+// Default values
+
+.textfield {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    @include body;
+}
+
+.textfield__label {
+    color: var(--text-primary);
+    @include label;
+}
+
+.textfield__area {
+    width: 100%;
+    height: 100%;
+    padding: 81px 16px 16px;
+    border: none;
+    outline: 1px solid var(--border-default);
+    border-radius: 12px;
+    background-color: var(--surface-elevation-0);
+    color: var(--text-1);
+    resize: none;
+}
+
+.textfield__caption {
+    display: flex;
+    align-items: center;
+    margin: 8px 0 16px;
+    gap: 8px;
+    @include caption;
+}
+
+// Modifiers
+
+.textfield__area:focus {
+    outline: 2px solid var(--border-focus);
+}
+
+.textfield__area--output {
+    outline: none;
+    background-color: var(--surface-1);
+}
+
+@media screen and (min-width: 872px) {
+    .textfield {
+        flex-grow: 0;
+    }
+
+    .textfield__area {
+        padding: 101px 24px 24px;
+    }
+
+    .textfield__caption {
+        margin: 12px 0 0;
+    }
+    .textfield--output {
+        grid-column: 2/3;
+        grid-row: 1/3;
+    }
+}

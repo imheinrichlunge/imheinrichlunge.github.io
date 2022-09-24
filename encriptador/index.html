@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="css/styles.css" />
+        <title>Encriptador</title>
+        <link rel="shortcut icon" href="src/Logo.svg" type="image/x-icon" />
+    </head>
+    <body>
+        <header class="header">
+            <svg class="logo" viewBox="0 0 48 48">
+                <path
+                    d="M31.853 23.6529C31.8096 23.9311 31.7038 24.1959 31.5435 24.4275C31.3832 24.659 31.1726 24.8512
+                30.9275 24.9898C30.4338 25.3086 30.0019 25.468 29.5649 25.6274C28.6342 25.9488 27.6546 26.2702 26.6185 26.643C25.5259 27.0157 24.5463 27.3885 23.6722
+                27.6585C22.5821 28.0313 21.546 28.3526 20.5613 28.7254C19.8205 29.0425 19.1246 29.4556 18.4917 29.9544C17.903 30.4877 17.3893 31.0983 16.9645 31.7695C16.5275 32.515
+                16.2524 33.4766 16.2524 34.5975C16.2524 36.842 16.7974 38.5491 17.8901 39.6161C18.9802 40.7396 21.001 41.2718 23.9961 41.2718C27.0505 41.2718 29.1227 40.6856
+                30.2179 39.5107C31.3054 38.3357 31.8504 36.6826 31.8504 34.5487V23.6529H31.853ZM23.9987 0C29.3463 0 33.2722 1.01553 35.7789 3.09802C38.2882 5.12908 39.5428 7.74119
+                39.5428 10.8366V37.2148C39.5428 38.2817 39.3268 39.4567 38.9463 40.737C38.5607 42.0225 37.7997 43.1949 36.599 44.2592C35.4549 45.3313 33.8738 46.2389 31.8556
+                46.933C29.8374 47.6272 27.2201 48 24.0013 48C20.7876 48 18.1652 47.6272 16.1495 46.933C14.1339 46.2389 12.5502 45.3313 11.4061 44.2592C10.3418 43.3001 9.53551
+                42.089 9.06141 40.737C8.67571 39.4592 8.45721 38.2843 8.45721 37.2174V33.001C8.45721 30.7565 9.05622 28.674 10.2569 26.8563C11.4575 24.9898 13.1466 23.7095 15.3294
+                22.9073C16.4195 22.5345 17.6741 22.1618 19.0907 21.681C20.5099 21.1976 21.816 20.7169 23.1271 20.2927C24.4383 19.8633 25.5824 19.434 26.562 19.0586C27.1531 18.8221
+                27.7535 18.6094 28.3616 18.421L29.3438 17.9402C29.7294 17.7268 30.1073 17.4055 30.4904 16.9787C30.8709 16.5545 31.1974 16.0737 31.4725 15.5389C31.7632 14.9599
+                31.9129 14.3203 31.9096 13.6724V11.9627C31.9136 11.3361 31.7821 10.716 31.5239 10.145C31.308 9.5023 30.8709 8.91612 30.2719 8.38393C29.6728 7.84917 28.8527 7.42239
+                27.8732 7.09845C26.891 6.78222 25.585 6.62025 24.1093 6.62025C21.0549 6.62025 19.0367 7.21157 17.9466 8.43535C17.0211 9.50488 16.4761 10.8392 16.3681
+                12.3329C16.3681 12.6543 16.0955 12.8677 15.7665 12.8677L9.11541 12.9757C8.95741 12.9764 8.80551 12.9146 8.69281 12.8039C8.58021 12.6931 8.51581 12.5423 8.51381
+                12.3844V10.8418C8.51381 9.3429 8.78891 7.95458 9.38791 6.62025C9.98951 5.28334 10.9176 4.16497 12.1697 3.20086C13.4243 2.24189 15.062 1.44231 17.0237
+                0.907552C18.9339 0.26481 21.2786 0 24.0038 0H23.9987Z"
+                />
+            </svg>
+        </header>
+        <main class="container">
+            <div class="textfield">
+                <div class="label-container">
+                    <label for="input" class="textfield__label">Ingresa tu mensaje</label>
+                    <button id="button-paste" class="button button--tonal button--leading-icon">
+                        <svg class="icon icon--paste" viewBox="0 0 24 24">
+                            <path
+                                class="icon__path"
+                                d="M19 2H14.82C14.4 0.84 13.3 0 12 0C10.7 0 9.6 0.84 9.18 2H5C3.9 2 3 2.9 3 4V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V4C21 2.9 20.1 2 19 2ZM12 2C12.55 2 13 2.45 13 3C13 3.55 12.55 4 12 4C11.45 4 11 3.55 11 3C11 2.45 11.45 2 12 2ZM18 20H6C5.45 20 5 19.55 5 19V5C5 4.45 5.45 4 6 4H7V5C7 6.1 7.9 7 9 7H15C16.1 7 17 6.1 17 5V4H18C18.55 4 19 4.45 19 5V19C19 19.55 18.55 20 18 20Z"
+                            />
+                        </svg>
+                        <span>Pegar</span>
+                    </button>
+                </div>
+                <textarea name="input" id="input" class="textfield__area textfield__area--input"></textarea>
+                <p class="textfield__caption">
+                    <svg class="icon icon--info" viewBox="0 0 24 24">
+                        <path
+                            class="icon__path"
+                            d="M11 7H13V9H11V7ZM11 11H13V17H11V11ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                        />
+                    </svg>
+                    Solo letras minúsculas y sin acentos.
+                </p>
+            </div>
+            <div class="textfield textfield--output">
+                <div class="label-container">
+                    <label for="output" class="textfield__label">Resultado</label>
+                    <button id="button-copy" class="button button--tonal button--leading-icon">
+                        <svg class="icon icon--copy" viewBox="0 0 24 24">
+                            <path
+                                class="icon__path"
+                                d="M15 20H5V7C5 6.45 4.55 6 4 6C3.45 6 3 6.45 3 7V20C3 21.1 3.9 22 5 22H15C15.55 22 16 21.55 16 21C16 20.45 15.55 20 15 20ZM20 16V4C20 2.9 19.1 2 18 2H9C7.9 2 7 2.9 7 4V16C7 17.1 7.9 18 9 18H18C19.1 18 20 17.1 20 16ZM18 16H9V4H18V16Z"
+                            />
+                        </svg>
+                        <span>Copiar</span>
+                    </button>
+                </div>
+                <textarea name="output" id="output" class="textfield__area textfield__area--output" disabled></textarea>
+            </div>
+            <div class="button-container">
+                <button name="button-encrypt" id="button-encrypt" class="button button--filled grow rounded-18">¡Encriptar!</button>
+                <button name="button-decrypt" id="button-decrypt" class="button button--tonal grow rounded-18">¡Desencriptar!</button>
+            </div>
+        </main>
+        <div id="snackbar" class="snackbar" aria-hidden="true"></div>
+        <script src="js/script.js"></script>
+    </body>
+</html>

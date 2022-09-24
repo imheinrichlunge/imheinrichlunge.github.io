@@ -1,0 +1,42 @@
+.snackbar {
+    position: fixed;
+    z-index: 100;
+    bottom: 104px;
+    left: 16px;
+    visibility: hidden;
+    width: calc(100% - 16px * 2);
+    padding: 12px 16px;
+    border-radius: 16px;
+    opacity: 0;
+    @include shadow-lg;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.snackbar[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+}
+
+.snackbar--default {
+    background-color: var(--surface-elevation-3);
+}
+
+.snackbar--success {
+    background-color: var(--fill-success);
+    color: var(--text-success);
+}
+
+.snackbar--error {
+    background-color: var(--fill-error);
+    color: var(--text-error);
+}
+
+@media screen and (min-width: 872px) {
+    .snackbar {
+        bottom: 48px;
+        left: auto;
+        right: 48px;
+        display: inline-block;
+        width: auto;
+    }
+}

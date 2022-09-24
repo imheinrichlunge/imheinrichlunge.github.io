@@ -1,0 +1,15 @@
+.text-body {
+    @include body;
+}
+
+.text-label {
+    @include label;
+}
+
+.text-button {
+    @include button;
+}
+
+.text-caption {
+    @include caption;
+}
