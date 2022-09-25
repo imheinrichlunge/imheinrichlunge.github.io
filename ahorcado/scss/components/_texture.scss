@@ -1,0 +1,20 @@
+.texture {
+    position: fixed;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    opacity: 0.25;
+    animation: calc(60s * 3) infinite alternate move;
+}
+
+@keyframes move {
+    from {
+        transform: translate(0);
+    }
+    50% {
+        transform: translate(-75%, -35%);
+    }
+    to {
+        transform: translate(-1920px, -1080px);
+    }
+}

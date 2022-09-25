@@ -1,0 +1,11 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    background: radial-gradient(50% 50% at 50% 50%, var(--background-1) 0%, var(--background-2) 100%);
+    color: var(--text-1);
+    font-family: "Baloo 2", sans-serif;
+}

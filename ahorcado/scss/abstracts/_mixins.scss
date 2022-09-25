@@ -1,0 +1,26 @@
+@mixin body-1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+@mixin body-2 {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+@mixin caption {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+// Effect Styles
+@mixin text-border {
+    text-shadow: -1px -1px 0 var(--shadow), 1px -1px 0 var(--shadow), -1px 1px 0 var(--shadow), 1px 1px 0 var(--shadow), -1px 2px 0 var(--shadow), 1px 2px 0 var(--shadow),
+        0px 2px 0 var(--shadow);
+}

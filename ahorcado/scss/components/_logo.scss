@@ -1,0 +1,11 @@
+.logo {
+    width: 48px;
+    height: 48px;
+    fill: var(--logo);
+}
+@media screen and (min-width: 872px) {
+    .logo {
+        width: 48px;
+        height: 48px;
+    }
+}
