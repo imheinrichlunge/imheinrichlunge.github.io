@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
         <link rel="stylesheet" href="css/styles.css" />
         <title>Ahorcado</title>
+        <link rel="shortcut icon" href="src/logo.svg" type="image/x-icon" />
     </head>
     <body>
         <header class="header">
@@ -33,7 +34,7 @@
                 />
             </svg>
         </header>
-        <main class="container">
+        <main class="container container--game">
             <!-- <button class="button">
                 <div class="button__text">Iniciar Sesión</div>
             </button>
@@ -41,7 +42,7 @@
                 <div class="button__text">Agregar Palabra</div>
             </button> -->
 
-            <div class="form">
+            <!-- <div class="form">
                 <input type="text" class="textfield" placeholder="Ingresa una palabra" />
                 <p class="caption">
                     <svg class="icon" viewBox="0 0 24 24">
@@ -65,8 +66,18 @@
                 <button class="button button--secondary">
                     <div class="button--secondary__text">Cancelar</div>
                 </button>
+            </div> -->
+            <canvas id="canvas" class="canvas" width="312" height="468"></canvas>
+            <div class="button__container">
+                <button id="new-game" class="button button--primary">
+                    <div class="button--primary__text">Nuevo Juego</div>
+                </button>
+                <button class="button button--secondary">
+                    <div class="button--secondary__text">Rendirse</div>
+                </button>
             </div>
         </main>
-        <img class="texture" src="src/texture.svg" alt="" />
+        <img class="texture" src="src/texture.svg" alt="Esta es una textura para el fondo." />
+        <script src="js/scripts.js"></script>
     </body>
 </html>
