@@ -34,16 +34,18 @@
                 />
             </svg>
         </header>
-        <main class="container container--game">
-            <!-- <button class="button">
-                <div class="button__text">Iniciar Sesión</div>
+        <main class="container container--home" aria-hidden="false">
+            <button id="start-game" class="button button--primary">
+                <div class="button--primary__text">Iniciar Juego</div>
             </button>
-            <button class="button button--secondary">
-                <div class="button__text">Agregar Palabra</div>
-            </button> -->
+            <button id="add-word" class="button button--secondary">
+                <div class="button--secondary__text">Agregar Palabra</div>
+            </button>
+        </main>
 
-            <!-- <div class="form">
-                <input type="text" class="textfield" placeholder="Ingresa una palabra" />
+        <main class="container container--add-word" aria-hidden="true">
+            <div class="input-container">
+                <input type="text" id="new-word" class="textfield" placeholder="Ingresa una palabra" />
                 <p class="caption">
                     <svg class="icon" viewBox="0 0 24 24">
                         <path
@@ -60,19 +62,22 @@
                 </p>
             </div>
             <div class="button__container">
-                <button class="button button--primary">
+                <button id="save" class="button button--primary">
                     <div class="button--primary__text">Guardar y Salir</div>
                 </button>
-                <button class="button button--secondary">
+                <button id="cancel" class="button button--secondary">
                     <div class="button--secondary__text">Cancelar</div>
                 </button>
-            </div> -->
+            </div>
+        </main>
+        <main class="container container--game" aria-hidden="true">
+            <input type="text" id="key-listener" class="hidden-input" disabled />
             <canvas id="canvas" class="canvas" width="312" height="468"></canvas>
             <div class="button__container">
                 <button id="new-game" class="button button--primary">
                     <div class="button--primary__text">Nuevo Juego</div>
                 </button>
-                <button class="button button--secondary">
+                <button id="surrender" class="button button--secondary">
                     <div class="button--secondary__text">Rendirse</div>
                 </button>
             </div>
