@@ -1,6 +1,6 @@
 const // Containers
     homePage = document.getElementsByClassName("container--home")[0],
-    addWordPage = document.getElementsByClassName("container--add-word")[0],
+    addWordsPage = document.getElementsByClassName("container--add-word")[0],
     gamePage = document.getElementsByClassName("container--game")[0],
     // Buttons
     startGameButton = document.getElementById("start-game"),
@@ -42,7 +42,6 @@ const words = [
         "jovial",
         "reclinar",
         "recluir",
-        "recopilar",
         "temporal",
         "temprano",
     ],
@@ -66,10 +65,7 @@ const loadFont = async () => {
     document.fonts.add(font);
 };
 
-const addWordUI = () => {
-    homePage.setAttribute("aria-hidden", "true");
-    addWordPage.setAttribute("aria-hidden", "false");
-};
+const addWords = () => {};
 
 const getRandomNumber = () => {
     let max = words.length - 1;
@@ -154,6 +150,7 @@ const drawHangman = (count) => {
 };
 
 const clearGame = () => {
+    xAxis = [];
     usedKeys = [];
     wrongKeys = "";
     hitCounter = 0;
@@ -165,6 +162,7 @@ const clearGame = () => {
         usedWords.push(words[randomNumber]);
         words.splice(randomNumber, 1);
     } else {
+        alert("Se acabarón las palabras");
         fillOriginalArray();
     }
 
@@ -175,8 +173,14 @@ const clearGame = () => {
     clearCanvas();
 };
 
+const addWordsUI = () => {
+    newWordInput.value = "";
+    homePage.setAttribute("aria-hidden", "true");
+    addWordPage.setAttribute("aria-hidden", "false");
+};
+
 const surrender = () => {
-    fillOriginalArray;
+    fillOriginalArray();
     gamePage.setAttribute("aria-hidden", "true");
     homePage.setAttribute("aria-hidden", "false");
 };
@@ -237,7 +241,8 @@ startGameButton.addEventListener("click", () => {
     clearGame();
     drawKeyFields();
 });
-addWordButton.addEventListener("click", addWordUI);
+addWordsButton.addEventListener("click", addWordsUI);
+// addWordsButton.addEventListener("click", addWordsUI);
 newGameButton.addEventListener("click", () => {
     setCanvasStyles();
     clearGame();
