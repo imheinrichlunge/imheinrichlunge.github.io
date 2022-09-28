@@ -10,15 +10,18 @@
 }
 
 .container--game {
+    margin-top: 24px;
     height: auto;
 }
 
 .container--home[aria-hidden="false"] {
     display: flex;
 }
+
 .container--add-word[aria-hidden="false"] {
     display: flex;
 }
+
 .container--game[aria-hidden="false"] {
     display: flex;
 }
