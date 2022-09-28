@@ -1,14 +1,16 @@
 const // Containers
     homePage = document.getElementsByClassName("container--home")[0],
-    addWordsPage = document.getElementsByClassName("container--add-word")[0],
+    wordsPage = document.getElementsByClassName("container--add-word")[0],
     gamePage = document.getElementsByClassName("container--game")[0],
     // Buttons
     startGameButton = document.getElementById("start-game"),
-    addWordButton = document.getElementById("add-word"),
+    wordsPageButton = document.getElementById("add-word"),
+    saveWordsButton = document.getElementById("save-word"),
+    cancelButton = document.getElementById("cancel"),
     newGameButton = document.getElementById("new-game"),
     surrenderButton = document.getElementById("surrender"),
     // Textfields
-    newWordInput = document.getElementById("new-word"),
+    newWordsInput = document.getElementById("new-word"),
     input = document.getElementById("key-listener"),
     // Canvas
     canvas = document.getElementById("canvas"),
@@ -43,10 +45,11 @@ const words = [
         "reclinar",
         "recluir",
         "temporal",
-        "temprano",
+        "temprano"
     ],
     usedWords = [],
-    regex = /[A-zÑñ]/;
+    wordRegex = /^[A-zÑñ]*$/,
+    hangmanRegex = /[A-zÑñ]/;
 
 let lineWidth = 25,
     gap = 12,
@@ -57,7 +60,8 @@ let lineWidth = 25,
     usedKey = false,
     wrongKeys = "",
     hitCounter = 0,
-    errorCounter = 0;
+    errorCounter = 0,
+    userWords = [];
 
 const loadFont = async () => {
     const font = new FontFace("Baloo", "url(https://fonts.gstatic.com/s/baloo2/v14/wXK0E3kTposypRydzVT08TS3JnAmtdiayppo_lc.woff2)");
@@ -65,7 +69,21 @@ const loadFont = async () => {
     document.fonts.add(font);
 };
 
-const addWords = () => {};
+const addUserWords = (e) => {
+    if (e.key === "Enter") {
+        if (e.target.value.length < 3) {
+            alert("Mínimo 3 cáracteres");
+        } else if (e.target.value.length > 8) {
+            alert("Máximo 8 cáracteres");
+        } else if (!wordRegex.test(e.target.value)) {
+            alert("La palabra tiene cáracteres invalidos");
+        } else {
+            userWords.push(e.target.value.toLowerCase());
+            e.target.value = "";
+            alert("Palabra añadida");
+        }
+    }
+};
 
 const getRandomNumber = () => {
     let max = words.length - 1;
@@ -173,18 +191,6 @@ const clearGame = () => {
     clearCanvas();
 };
 
-const addWordsUI = () => {
-    newWordInput.value = "";
-    homePage.setAttribute("aria-hidden", "true");
-    addWordPage.setAttribute("aria-hidden", "false");
-};
-
-const surrender = () => {
-    fillOriginalArray();
-    gamePage.setAttribute("aria-hidden", "true");
-    homePage.setAttribute("aria-hidden", "false");
-};
-
 const hangman = (e) => {
     let pressedKey = e.target.value.slice(-1).toLowerCase();
 
@@ -193,7 +199,7 @@ const hangman = (e) => {
             usedKey = true;
         }
     }
-    if (regex.test(pressedKey)) {
+    if (hangmanRegex.test(pressedKey)) {
         usedKeys.push(pressedKey);
         switch (true) {
             case usedKey:
@@ -226,11 +232,13 @@ const hangman = (e) => {
     }
 };
 
+// Load events
 document.addEventListener("DOMContentLoaded", () => {
     loadFont();
     input.value = "";
 });
 
+// Click events
 document.addEventListener("click", () => {
     input.focus();
 });
@@ -241,13 +249,34 @@ startGameButton.addEventListener("click", () => {
     clearGame();
     drawKeyFields();
 });
-addWordsButton.addEventListener("click", addWordsUI);
-// addWordsButton.addEventListener("click", addWordsUI);
+wordsPageButton.addEventListener("click", () => {
+    newWordsInput.value = "";
+    homePage.setAttribute("aria-hidden", "true");
+    wordsPage.setAttribute("aria-hidden", "false");
+    newWordsInput.focus();
+});
+saveWordsButton.addEventListener("click", () => {
+    words.push(...userWords);
+    wordsPage.setAttribute("aria-hidden", "true");
+    homePage.setAttribute("aria-hidden", "false");
+    alert("Palabras añadidas");
+});
+cancelButton.addEventListener("click", () => {
+    userWords = [];
+    wordsPage.setAttribute("aria-hidden", "true");
+    homePage.setAttribute("aria-hidden", "false");
+});
 newGameButton.addEventListener("click", () => {
     setCanvasStyles();
     clearGame();
     drawKeyFields();
 });
-surrenderButton.addEventListener("click", surrender);
+surrenderButton.addEventListener("click", () => {
+    fillOriginalArray();
+    gamePage.setAttribute("aria-hidden", "true");
+    homePage.setAttribute("aria-hidden", "false");
+});
 
+// Keyboard events
 input.addEventListener("input", hangman);
+newWordsInput.addEventListener("keydown", addUserWords);
