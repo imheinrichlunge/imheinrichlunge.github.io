@@ -1,11 +1,53 @@
-const words = ["sape"],
+const // Containers
+    homePage = document.getElementsByClassName("container--home")[0],
+    addWordPage = document.getElementsByClassName("container--add-word")[0],
+    gamePage = document.getElementsByClassName("container--game")[0],
+    // Buttons
+    startGameButton = document.getElementById("start-game"),
+    addWordButton = document.getElementById("add-word"),
+    newGameButton = document.getElementById("new-game"),
+    surrenderButton = document.getElementById("surrender"),
+    // Textfields
+    newWordInput = document.getElementById("new-word"),
+    input = document.getElementById("key-listener"),
+    // Canvas
+    canvas = document.getElementById("canvas"),
+    ctx = canvas.getContext("2d");
+
+const words = [
+        "abandono",
+        "abarcado",
+        "abarrote",
+        "calibrar",
+        "caliente",
+        "califica",
+        "calmante",
+        "decidido",
+        "declarar",
+        "especial",
+        "esquivar",
+        "estanque",
+        "feriados",
+        "fermento",
+        "filosofa",
+        "filtrado",
+        "finaliza",
+        "financia",
+        "golosina",
+        "grandote",
+        "gratuito",
+        "jolgorio",
+        "jornada",
+        "jorobado",
+        "jovial",
+        "reclinar",
+        "recluir",
+        "recopilar",
+        "temporal",
+        "temprano",
+    ],
     usedWords = [],
     regex = /[A-zÑñ]/;
-
-const canvas = document.getElementById("canvas"),
-    ctx = canvas.getContext("2d"),
-    newGameButton = document.getElementById("new-game"),
-    input = document.getElementById("key-listener");
 
 let lineWidth = 25,
     gap = 12,
@@ -14,15 +56,40 @@ let lineWidth = 25,
     currentWord = "",
     usedKeys = [],
     usedKey = false,
+    wrongKeys = "",
     hitCounter = 0,
     errorCounter = 0;
+
+const loadFont = async () => {
+    const font = new FontFace("Baloo", "url(https://fonts.gstatic.com/s/baloo2/v14/wXK0E3kTposypRydzVT08TS3JnAmtdiayppo_lc.woff2)");
+    await font.load();
+    document.fonts.add(font);
+};
+
+const addWordUI = () => {
+    homePage.setAttribute("aria-hidden", "true");
+    addWordPage.setAttribute("aria-hidden", "false");
+};
 
 const getRandomNumber = () => {
     let max = words.length - 1;
     return Math.floor(Math.random() * (max - 0) + 0);
 };
 
-const createLine = (moveToX, moveToY, lineToX, lineToY) => {
+const fillOriginalArray = () => {
+    words.push(...usedWords);
+    usedWords.splice(0, words.length);
+};
+
+const setCanvasStyles = () => {
+    ctx.lineWidth = 4;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.fillStyle = "#763c09";
+    ctx.font = "800 28px Baloo";
+};
+
+const drawLine = (moveToX, moveToY, lineToX, lineToY) => {
     ctx.beginPath();
     ctx.moveTo(moveToX, moveToY);
     ctx.lineTo(lineToX, lineToY);
@@ -30,33 +97,65 @@ const createLine = (moveToX, moveToY, lineToX, lineToY) => {
     ctx.stroke();
 };
 
-const clearCanvas = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    createLine(69, 284, 213, 284);
+const drawCircle = (x, y, radius, startAngle) => {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, startAngle, 2 * Math.PI);
+    ctx.closePath();
+    ctx.stroke();
 };
 
-const createKeyFields = () => {
+const clearCanvas = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawLine(69, 284, 213, 284);
+};
+
+const drawKeyFields = () => {
     let initialXAxis = (312 - (lineWidth * currentWord.length + gap * (currentWord.length - 1))) / 2;
 
     for (let i = 0; i < currentWord.length; i++) {
         xAxis.push(initialXAxis);
-        createLine(initialXAxis, 364, initialXAxis + lineWidth, 364);
+        drawLine(initialXAxis, 360, initialXAxis + lineWidth, 360);
         initialXAxis = initialXAxis + lineWidth + gap;
     }
 };
 
-const insertCorrectKeys = (position, key) => {
+const drawCorrectKeys = (position, key) => {
     let keyWidth = ctx.measureText(key.toUpperCase()).width,
         keyPosition = xAxis[position] + (lineWidth - keyWidth) / 2;
     ctx.fillText(key.toUpperCase(), keyPosition, 354);
 };
 
-const drawHangman = () => {
-    const hangmanCoordinates = [];
+const drawIncorrectKeys = (text) => {
+    let keysWidth = (312 - ctx.measureText(text).width) / 2;
+
+    ctx.clearRect(0, 367, canvas.width, 48);
+    ctx.fillText(text.toUpperCase(), keysWidth, 403);
+};
+
+const drawHangman = (count) => {
+    const x = [
+        [],
+        [96, 284, 96, 24],
+        [96, 24, 213, 24],
+        [213, 24, 213, 56],
+        [213, 86, 30, 0],
+        [213, 116, 213, 176],
+        [213, 126, 188, 151],
+        [213, 126, 238, 151],
+        [213, 176, 188, 201],
+        [213, 176, 238, 201],
+    ];
+
+    if (count === 4) {
+        drawCircle(x[count][0], x[count][1], x[count][2], x[count][3]);
+    } else {
+        drawLine(x[count][0], x[count][1], x[count][2], x[count][3]);
+    }
 };
 
 const clearGame = () => {
     usedKeys = [];
+    wrongKeys = "";
     hitCounter = 0;
     errorCounter = 0;
     randomNumber = getRandomNumber();
@@ -66,14 +165,20 @@ const clearGame = () => {
         usedWords.push(words[randomNumber]);
         words.splice(randomNumber, 1);
     } else {
-        words.push(...usedWords);
-        usedWords.splice(0, words.length);
+        fillOriginalArray();
     }
 
     input.value = "";
-    input.removeAttribute("disabled");
-    input.setAttribute("autofocus", "");
+    if (input.hasAttribute("disabled")) {
+        input.removeAttribute("disabled");
+    }
     clearCanvas();
+};
+
+const surrender = () => {
+    fillOriginalArray;
+    gamePage.setAttribute("aria-hidden", "true");
+    homePage.setAttribute("aria-hidden", "false");
 };
 
 const hangman = (e) => {
@@ -94,7 +199,7 @@ const hangman = (e) => {
                 for (let i = 0; i < currentWord.length; i++) {
                     if (currentWord[i] === pressedKey) {
                         hitCounter++;
-                        insertCorrectKeys(i, pressedKey);
+                        drawCorrectKeys(i, pressedKey);
                     }
                 }
                 if (hitCounter === currentWord.length) {
@@ -104,11 +209,11 @@ const hangman = (e) => {
                 break;
             default:
                 errorCounter++;
-                alert("Falló");
-                // paragraphs[1].innerText = `Errores: ${errorCounter} de 9`;
-                // input[1].value = input[1].value + pressedKey;
+                wrongKeys = wrongKeys + " " + pressedKey;
+                drawHangman(errorCounter);
+                drawIncorrectKeys(wrongKeys);
+
                 if (errorCounter === 9) {
-                    // paragraphs[3].innerText = `La palabra era ${currentWord}`;
                     input.setAttribute("disabled", "");
                     alert("Perdió");
                 }
@@ -117,136 +222,27 @@ const hangman = (e) => {
     }
 };
 
-ctx.lineWidth = 4;
-ctx.lineCap = "round";
-ctx.strokeStyle = "#763C09";
-ctx.font = "28px serif";
-
 document.addEventListener("DOMContentLoaded", () => {
+    loadFont();
     input.value = "";
 });
-newGameButton.addEventListener("click", () => {
-    clearGame();
-    createKeyFields();
-});
+
 document.addEventListener("click", () => {
     input.focus();
 });
+startGameButton.addEventListener("click", () => {
+    homePage.setAttribute("aria-hidden", "true");
+    gamePage.setAttribute("aria-hidden", "false");
+    setCanvasStyles();
+    clearGame();
+    drawKeyFields();
+});
+addWordButton.addEventListener("click", addWordUI);
+newGameButton.addEventListener("click", () => {
+    setCanvasStyles();
+    clearGame();
+    drawKeyFields();
+});
+surrenderButton.addEventListener("click", surrender);
 
 input.addEventListener("input", hangman);
-
-/*
-// Dom Nodes
-const canvas = document.getElementById("canvas"),
-    ctx = canvas.getContext("2d"),
-    newGameButton = document.getElementById("new-game");
-
-// Variables
-const words = ["knows", "quiet", "high", "fuckup", "queen", "doomed"],
-    regex = /[a-zA-Zñ]/;
-
-let lineWidth = 25,
-    gap = 12,
-    currentWord = "",
-    usedKeys = [],
-    used = false,
-    xAxis = [],
-    gameStarted = false,
-    gameWon = false,
-    gameLost = false,
-    hitCounter = 0,
-    errorCounter = 0;
-
-const randomNumber = () => {
-    let max = words.length - 1;
-    return Math.floor(Math.random() * (max - 0) + 0);
-};
-
-const clearCanvas = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    createLine(69, 284, 213, 284);
-};
-
-const createLine = (moveToX, moveToY, lineToX, lineToY) => {
-    ctx.beginPath();
-    ctx.moveTo(moveToX, moveToY);
-    ctx.lineTo(lineToX, lineToY);
-    ctx.closePath();
-    ctx.stroke();
-};
-
-const initialDrawing = () => {
-    let initialXAxis = (312 - (lineWidth * currentWord.length + gap * (currentWord.length - 1))) / 2;
-
-    clearCanvas();
-    createLine(69, 284, 213, 284);
-    for (let i = 0; i < wordLength; i++) {
-        xAxis.push(initialXAxis);
-        createLine(initialXAxis, 368, initialXAxis + lineWidth, 368);
-        initialXAxis = initialXAxis + lineWidth + gap;
-    }
-};
-
-ctx.lineWidth = 4;
-ctx.lineCap = "round";
-ctx.strokeStyle = "#763C09";
-
-newGameButton.addEventListener("click", () => {
-    currentWord = words[randomNumber()];
-    usedKeys = [];
-    xAxis = [];
-    gameStarted = true;
-    gameWon = false;
-    gameLost = false;
-    hitCounter = 0;
-    errorCounter = 0;
-    initialDrawing();
-});
-addEventListener("keydown", (e) => {
-    switch (true) {
-        case gameWon:
-            alert("Ganó Siuuuuuuuuuuuuuu");
-            break;
-        case gameLost:
-            alert("Perdió mi rey");
-        default:
-            used = false;
-
-            if (regex.test(e.key) && e.key.length === 1 && gameStarted) {
-                for (let i = 0; i < usedKeys.length; i++) {
-                    if (usedKeys[i] === e.key) {
-                        used = true;
-                        break;
-                    }
-                }
-
-                if (!used) {
-                    if (currentWord.includes(e.key)) {
-                        for (let i = 0; i < currentWord.length; i++) {
-                            if (currentWord[i] === e.key) {
-                                hitCounter++;
-                                createLine(xAxis[i], 332, xAxis[i] + lineWidth, 332);
-                            }
-                        }
-
-                        if (currentWord.length === hitCounter) {
-                            gameWon = true;
-                        }
-                    } else {
-                        errorCounter++;
-                        alert("Falló");
-
-                        if (9 === errorCounter) {
-                            gameLost = true;
-                        }
-                    }
-                } else {
-                    alert("Letra usada");
-                }
-
-                usedKeys.push(e.key);
-            }
-            break;
-    }
-});
-*/
