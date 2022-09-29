@@ -44,9 +44,23 @@
         </main>
         <main class="container container--add-word" aria-hidden="true">
             <div class="input-container">
-                <input type="text" id="new-word" class="textfield" placeholder="Ingresa una palabra" autocomplete="off" enterkeyhint="done" minlength="3" maxlength="8" />
+                <input type="text" id="new-word" class="textfield" placeholder="Ingresa una palabra" autocomplete="off" enterkeyhint="done" minlength="3" maxlength="8" autofocus />
                 <p class="caption">
-                    <svg class="icon" viewBox="0 0 24 24">
+                    <svg class="icon icon--info" viewBox="0 0 24 24">
+                        <path
+                            d="M11.1761 6.80799C10.9627 7.02132 10.8561 7.28266 10.8561 7.59199C10.8561 7.89066 10.9627 8.15199 11.1761 8.37599C11.4001 8.58932 11.6774 8.69599 12.0081 8.69599C12.3494 8.69599 12.6214 8.58932 12.8241 8.37599C13.0374 8.15199 13.1441 7.89066 13.1441 7.59199C13.1441 7.28266 13.0374 7.02132 12.8241 6.80799C12.6214 6.59466 12.3494 6.48799 12.0081 6.48799C11.6774 6.48799 11.4001 6.59466 11.1761 6.80799Z"
+                        />
+                        <path
+                            d="M12.6321 17.464C12.7921 17.4427 12.9147 17.416 13.0001 17.384V10.712C13.0001 10.36 12.9147 10.12 12.7441 9.99199C12.5734 9.85332 12.3014 9.78399 11.9281 9.78399C11.7361 9.78399 11.5547 9.79999 11.3841 9.83199C11.2241 9.85332 11.1014 9.87999 11.0161 9.91199V16.6C11.0161 16.9413 11.1067 17.1813 11.2881 17.32C11.4694 17.448 11.7414 17.512 12.1041 17.512C12.2961 17.512 12.4721 17.496 12.6321 17.464Z"
+                        />
+                        <path
+                            d="M2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12ZM4 12C4 16.41 7.59 20 12 20C16.41 20 20 16.41 20 12C20 7.59 16.41 4 12 4C7.59 4 4 7.59 4 12Z"
+                        />
+                    </svg>
+                    Oprime <code><strong>Enter</strong></code> para añadir a la lista.
+                </p>
+                <p class="caption">
+                    <svg class="icon icon--info" viewBox="0 0 24 24">
                         <path
                             d="M11.1761 6.80799C10.9627 7.02132 10.8561 7.28266 10.8561 7.59199C10.8561 7.89066 10.9627 8.15199 11.1761 8.37599C11.4001 8.58932 11.6774 8.69599 12.0081 8.69599C12.3494 8.69599 12.6214 8.58932 12.8241 8.37599C13.0374 8.15199 13.1441 7.89066 13.1441 7.59199C13.1441 7.28266 13.0374 7.02132 12.8241 6.80799C12.6214 6.59466 12.3494 6.48799 12.0081 6.48799C11.6774 6.48799 11.4001 6.59466 11.1761 6.80799Z"
                         />
@@ -81,6 +95,7 @@
                 </button>
             </div>
         </main>
+        <div id="snackbar" class="snackbar" aria-hidden="true"></div>
         <img class="texture" src="src/texture.svg" alt="Esta es una textura para el fondo." />
         <script src="js/scripts.js"></script>
     </body>

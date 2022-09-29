@@ -9,6 +9,7 @@ const // Containers
     cancelButton = document.getElementById("cancel"),
     newGameButton = document.getElementById("new-game"),
     surrenderButton = document.getElementById("surrender"),
+    snackbar = document.getElementById("snackbar"),
     // Textfields
     newWordsInput = document.getElementById("new-word"),
     input = document.getElementById("key-listener"),
@@ -45,11 +46,11 @@ const words = [
         "reclinar",
         "recluir",
         "temporal",
-        "temprano"
+        "temprano",
     ],
     usedWords = [],
     wordRegex = /^[A-zÑñ]*$/,
-    hangmanRegex = /[A-zÑñ]/;
+    hangmanRegex = /^[A-z]$/;
 
 let lineWidth = 25,
     gap = 12,
@@ -61,7 +62,8 @@ let lineWidth = 25,
     wrongKeys = "",
     hitCounter = 0,
     errorCounter = 0,
-    userWords = [];
+    userWords = [],
+    visibility;
 
 const loadFont = async () => {
     const font = new FontFace("Baloo", "url(https://fonts.gstatic.com/s/baloo2/v14/wXK0E3kTposypRydzVT08TS3JnAmtdiayppo_lc.woff2)");
@@ -69,18 +71,30 @@ const loadFont = async () => {
     document.fonts.add(font);
 };
 
+const showSnackbar = (msg) => {
+    clearTimeout(visibility);
+    snackbar.value = "";
+    snackbar.innerText = msg;
+    snackbar.setAttribute("aria-hidden", "false");
+
+    visibility = setTimeout(() => {
+        snackbar.setAttribute("aria-hidden", "true");
+    }, 3000);
+};
+
 const addUserWords = (e) => {
     if (e.key === "Enter") {
         if (e.target.value.length < 3) {
-            alert("Mínimo 3 cáracteres");
+            showSnackbar("Tienes menos de 3 caracteres");
         } else if (e.target.value.length > 8) {
-            alert("Máximo 8 cáracteres");
+            showSnackbar("Tienes más de 8 caracteres");
         } else if (!wordRegex.test(e.target.value)) {
-            alert("La palabra tiene cáracteres invalidos");
+            showSnackbar("Tienes caracteres invalidos");
         } else {
             userWords.push(e.target.value.toLowerCase());
             e.target.value = "";
-            alert("Palabra añadida");
+
+            showSnackbar("Palabra añadida a la lista");
         }
     }
 };
@@ -180,7 +194,7 @@ const clearGame = () => {
         usedWords.push(words[randomNumber]);
         words.splice(randomNumber, 1);
     } else {
-        alert("Se acabarón las palabras");
+        showSnackbar("Ya no hay más palabras, la lista se reiniciará");
         fillOriginalArray();
     }
 
@@ -188,6 +202,7 @@ const clearGame = () => {
     if (input.hasAttribute("disabled")) {
         input.removeAttribute("disabled");
     }
+    input.focus();
     clearCanvas();
 };
 
@@ -214,7 +229,8 @@ const hangman = (e) => {
                 }
                 if (hitCounter === currentWord.length) {
                     input.setAttribute("disabled", "");
-                    alert("Ganó");
+
+                    showSnackbar("Ganó");
                 }
                 break;
             default:
@@ -225,7 +241,7 @@ const hangman = (e) => {
 
                 if (errorCounter === 9) {
                     input.setAttribute("disabled", "");
-                    alert("Perdió");
+                    showSnackbar(`Perdió, la palabra era ${currentWord.toUpperCase()}`);
                 }
                 break;
         }
@@ -242,12 +258,9 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("click", () => {
     input.focus();
 });
-startGameButton.addEventListener("click", () => {
-    homePage.setAttribute("aria-hidden", "true");
-    gamePage.setAttribute("aria-hidden", "false");
-    setCanvasStyles();
-    clearGame();
-    drawKeyFields();
+document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+    input.focus();
 });
 wordsPageButton.addEventListener("click", () => {
     newWordsInput.value = "";
@@ -256,20 +269,37 @@ wordsPageButton.addEventListener("click", () => {
     newWordsInput.focus();
 });
 saveWordsButton.addEventListener("click", () => {
-    words.push(...userWords);
     wordsPage.setAttribute("aria-hidden", "true");
     homePage.setAttribute("aria-hidden", "false");
-    alert("Palabras añadidas");
+    if (userWords.length === 0) {
+        showSnackbar("No se encontraron palabras");
+    } else {
+        words.push(...userWords);
+        userWords = [];
+        showSnackbar("Palabras guardadas y listas para usar");
+    }
 });
 cancelButton.addEventListener("click", () => {
     userWords = [];
     wordsPage.setAttribute("aria-hidden", "true");
     homePage.setAttribute("aria-hidden", "false");
+
+    showSnackbar("No se agregaron palabras");
 });
-newGameButton.addEventListener("click", () => {
+startGameButton.addEventListener("click", () => {
+    homePage.setAttribute("aria-hidden", "true");
+    gamePage.setAttribute("aria-hidden", "false");
     setCanvasStyles();
     clearGame();
     drawKeyFields();
+    // input.focus();
+});
+newGameButton.addEventListener("click", () => {
+    gamePage.setAttribute("aria-hidden", "false");
+    setCanvasStyles();
+    clearGame();
+    drawKeyFields();
+    // input.focus();
 });
 surrenderButton.addEventListener("click", () => {
     fillOriginalArray();
@@ -278,5 +308,10 @@ surrenderButton.addEventListener("click", () => {
 });
 
 // Keyboard events
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+        e.preventDefault();
+    }
+});
 input.addEventListener("input", hangman);
 newWordsInput.addEventListener("keydown", addUserWords);
