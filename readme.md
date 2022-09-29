@@ -1,1 +1,7 @@
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus laudantium officiis ex, nostrum ipsam, quod mollitia temporibus, consequatur maiores vero repudiandae atque! At amet sit perspiciatis quas voluptate molestiae est.
+# Retos de Alura
+Estos son los retos que Alura propuso.
+## Tecnologías
+Cómo ya indica GitHub, usé las siguientes tecnologías:
+- HTML
+- Scss (usé el [patrón 7-1](https://sass-guidelin.es/#the-7-1-pattern)
+- JavaScript
